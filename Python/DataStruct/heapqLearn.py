@@ -39,6 +39,11 @@ class PriorityQueue:
     def push(self, item, priority):
         heapq.heappush(self._queue, (-priority, self._index, item))
         self._index += 1
+        # item1 < item2 => wrong,不能比较
+        # 引入元组可以比较大小：
+        #   (1, item1) < (2, item2) => true
+        # 防止优先级一样时比较大小出错，引入 index:
+        #   (1, index1, item1) < (2, index2, item2) => true
 
     def pop(self):
         return heapq.heappop(self._queue)
