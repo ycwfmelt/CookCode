@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <style>
+        #draggable {
+            width: 200px;
+            height: 20px;
+            text-align: center;
+            background: white;
+        }
+
+        .dropzone {
+            width: 200px;
+            height: 20px;
+            background: blueviolet;
+            margin-bottom: 10px;
+            padding: 10px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dropzone">
+        <div id="draggable" draggable="true" ondragstart="event.dataTransfer.setData('text',null)">
+            draggable
+        </div>
+    </div>
+    <div class="dropzone"></div>
+    <div class="dropzone"></div>
+    <div class="dropzone"></div>
+</body>
+<script>
+    var dragged
+
+    document.addEventListener('drag', function (event) { }, false)
+    document.addEventListener('dragstart', function (event) {
+        dragged = event.target
+
+        event.target.style.opacity = .5
+    }, false)
+    document.addEventListener('dragend', function (event) {
+        event.target.style.opacity = ''
+    }, false)
+    document.addEventListener('dragover', function (event) {
+        event.preventDefault()
+    }, false)
+    document.addEventListener('dragenter', function (event) {
+        if (event.target.className == 'dropzone') {
+            event.target.style.backgroud = 'purple'
+        }
+    }, false)
+    document.addEventListener('dragleave', function (event) {
+        if (event.target.className == 'dropzone') {
+            event.target.style.backgroud = ''
+        }
+    }, false)
+    document.addEventListener('drop', function (event) {
+        event.preventDefault()
+        if (event.target.className == 'dropzone') {
+            event.target.backgroud = ''
+            dragged.parentNode.removeChild(dragged)
+            event.target.appendChild(dragged)
+        }
+    }, false)
+</script>
+
+</html>
