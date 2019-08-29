@@ -1,0 +1,44 @@
+SET key value [EX seconds] [PX milliseconds] [NX|XX]
+> O(1)
+
+GET key
+> O(1)
+
+GETSET key value
+> O(1)
+
+STRLEN key
+> O(1)
+
+APPEND key value
+> O(1)
+
+SETRANGE key offset value
+> O(M)
+
+GETRANGE key [start end]
+> O(N)
+
+INCR key
+> O(1)
+
+INCRBY key increment
+> O(1)
+
+INCRBYFLOAT key increment
+> O(1)
+
+DECR key
+> O(1)
+
+DECRBY key decrement
+> O(1)
+
+MSET key value [key value ...]
+> O(N)
+
+MSETNX key value [key value ...]
+> O(N)
+
+MGET key [key ...]
+> O(N)
