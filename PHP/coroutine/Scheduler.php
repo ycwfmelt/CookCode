@@ -5,6 +5,8 @@ class Scheduler
     protected $maxTaskId = 0;
     protected $taskMap = [];    // taskId => task
     protected $taskQueue;
+    protected $waitingForRead = [];
+    protected $waitingForWrite = [];
 
     public function __construct()
     {
@@ -19,6 +21,23 @@ class Scheduler
         $this->schedule($task);
 
         return $tid;
+    }
+
+    public function killTask($tid)
+    {
+        if (!isset($this->taskMap[$tid])) {
+            return false;
+        }
+
+        unset($this->taskMap[$tid]);
+
+        foreach ($this->taskQueue as $i => $task) {
+            if ($task->getTaskId() === $tid) {
+                unset($this->taskQueue[$i]);
+                break;
+            }
+        }
+        return true;
     }
 
     public function schedule(Task $task)

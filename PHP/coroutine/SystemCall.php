@@ -11,8 +11,7 @@ class SystemCall
 
     public function __invoke(Task $task, Scheduler $scheduler)
     {
-        echo "start invoke", PHP_EOL;
         $callback = $this->callback;
-        return $callback($task, $scheduler);
+        $callback($task, $scheduler);
     }
 }
